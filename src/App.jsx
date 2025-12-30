@@ -1,16 +1,13 @@
-import Allbooks from "./components/Allbooks"
-import Book from "./components/Book"
-import Login from "./components/Login"
+
+import { Outlet } from "react-router-dom"
 import Navbar from "./components/Navbar"
-import ReadingIntro from "./components/ReadingIntro"
-import Signup from "./components/Signup"
+
 
 const App = () => {
   return (
     <div>
       <Navbar/>
-      <ReadingIntro/>
-      <Allbooks/>
+      <Outlet/>
     </div>
   )
 }

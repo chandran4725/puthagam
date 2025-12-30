@@ -1,10 +1,21 @@
-import React from 'react'
 import bookImg from "../assets/book1.jpg"
+import { useParams } from 'react-router-dom'
+import { books } from '../util'
+import { useEffect } from "react"
 
 const Book = () => {
+
+    useEffect(()=>{
+        window.scrollTo({top:0,behavior:"smooth"});
+    },[])
+
+    const {id} = useParams();
+
+    const book = books.find((book) => book.id == id);
+
     return (
         <div className="mt-24 px-4 md:px-16">
-            <div className="max-w-7xl mx-auto bg-white shadow-lg p-6 md:p-10">
+            <div className="max-w-7xl mx-auto bg-gray-100 border-3 border-green-500 shadow-2xl p-6 md:p-10">
 
                 {/* 3 COLUMN LAYOUT */}
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
@@ -14,7 +25,7 @@ const Book = () => {
                         <img
                             src={bookImg}
                             alt="Book"
-                            className="w-[260px] shadow-md"
+                            className="w-65 shadow-md"
                         />
 
                         <div className="flex gap-4 mt-6">
@@ -29,33 +40,31 @@ const Book = () => {
 
                     {/* COLUMN 2: BOOK DETAILS */}
                     <div className="flex flex-col gap-4">
-                        <h1 className="text-3xl font-bold">The Complete Java Guide</h1>
-                        <p className="text-xl text-green-600 font-semibold">₹499</p>
+                        <h1 className="text-3xl font-bold">{book.name}</h1>
+                        <p className="text-xl text-green-600 font-semibold">₹{book.price}</p>
 
                         <div className="grid grid-cols-2 gap-y-3 text-gray-700 mt-4">
                             <span className="font-semibold">ISBN:</span>
-                            <span>978-0135166307</span>
+                            <span>{book.isbn}</span>
 
                             <span className="font-semibold">Author:</span>
-                            <span>Herbert Schildt</span>
+                            <span>{book.author}</span>
 
                             <span className="font-semibold">Publisher:</span>
-                            <span>McGraw Hill</span>
+                            <span>{book.publisher}</span>
 
                             <span className="font-semibold">Pages:</span>
-                            <span>1248</span>
+                            <span>{book.pages}</span>
 
                             <span className="font-semibold">Language:</span>
-                            <span>English</span>
+                            <span>{book.language}</span>
 
                             <span className="font-semibold">Available Quantity:</span>
                             <span>10</span>
                         </div>
 
                         <p className="text-gray-600 leading-relaxed mt-4">
-                            This book provides a comprehensive introduction to Java programming,
-                            covering fundamentals, OOP concepts, multithreading, collections,
-                            and modern Java features.
+                            {book.description}
                         </p>
                     </div>
 
@@ -96,7 +105,7 @@ const Book = () => {
 
                 </div>
                 {/* COLUMN 3: REVIEWS MD View */}
-                <hr className='my-2'/>
+                <hr className='my-4 max-sm:hidden lg:hidden'/>
                 <div className="flex flex-col gap-6 max-sm:hidden sm:block lg:hidden">
                     <div className="flex justify-between items-center">
                         <h2 className="text-xl font-bold">Reviews</h2>

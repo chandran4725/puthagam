@@ -4,12 +4,13 @@ import { FaShoppingCart } from "react-icons/fa";
 import { IoPersonCircle } from "react-icons/io5";
 import { IoMdMenu } from "react-icons/io";
 import { IoMdClose } from "react-icons/io";
+import { Link } from 'react-router-dom';
 
 
 const Navbar = () => {
 
     const [open, setOpen] = useState(false);
-    
+
 
     const toggleMenu = () => {
         setOpen(!open);
@@ -24,15 +25,16 @@ const Navbar = () => {
                 </div>
                 <div className='max-lg:hidden'>
                     <ul className='flex gap-8 text-lg font-semibold mt-1'>
-                        <li className='hover:cursor-pointer hover:text-green-500'>All Books</li>
-                        <li className='hover:cursor-pointer hover:text-green-500'>New Arrivals</li>
-                        <li className='hover:cursor-pointer hover:text-green-500'>Best Seller</li>
+                        <li className='hover:cursor-pointer hover:text-green-500'>Home</li>
+                        <Link to={"/books"}>
+                            <li className='hover:cursor-pointer hover:text-green-500'>All Books</li>
+                        </Link>
                         <li className='hover:cursor-pointer hover:text-green-500'>About</li>
                         <li className='hover:cursor-pointer hover:text-green-500'>Contact</li>
                     </ul>
                 </div>
 
-                <div className={`flex items-center gap-8 mt-2 ${open ? "hidden" : "block"}` }>
+                <div className={`flex items-center gap-8 mt-2 ${open ? "hidden" : "block"}`}>
                     <i className='max-sm:text-xl text-3xl hover:cursor-pointer hover:text-green-500'><FaShoppingCart /></i>
                     <i className='max-sm:text-2xl text-4xl hover:cursor-pointer hover:text-green-500'><IoPersonCircle /></i>
                 </div>
@@ -48,22 +50,21 @@ const Navbar = () => {
                             <h1 className='max-sm:text-xl text-2xl font-bold'>Puthagam</h1>
                         </div>
 
-                        <i className='text-xl font-bold mt-1 md:text-2xl' onClick={toggleMenu}><IoMdClose/></i>
+                        <i className='text-xl font-bold mt-1 md:text-2xl' onClick={toggleMenu}><IoMdClose /></i>
                     </div>
 
                     <hr className='mx-2 md:mx-6' />
 
                     <ul className='my-2 px-4 md:px-6 space-y-1 text-md font-bold text-center'>
+                        <li className='hover:bg-green-500 hover:text-white py-2'>Home</li>
                         <li className='hover:bg-green-500 hover:text-white py-2'>All Books</li>
-                        <li className='hover:bg-green-500 hover:text-white py-2'>New Arrivals</li>
-                        <li className='hover:bg-green-500 hover:text-white py-2'>Best Seller</li>
                         <li className='hover:bg-green-500 hover:text-white py-2'>About</li>
                         <li className='hover:bg-green-500 hover:text-white py-2'>Contact</li>
                     </ul>
                 </div>
             </nav>
-            <hr className='mx-2'/>
-            
+            <hr className='mx-2' />
+
         </div>
     )
 }
