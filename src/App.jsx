@@ -1,14 +1,19 @@
 
 import { Outlet } from "react-router-dom"
 import Navbar from "./components/Navbar"
+import ThemeProvider from "./components/ThemeProvider"
+import { Provider } from "react-redux"
+import { Store } from "./components/Store"
 
 
 const App = () => {
   return (
-    <div>
-      <Navbar/>
-      <Outlet/>
-    </div>
+    <Provider store={Store}>
+      <ThemeProvider>
+        <Navbar />
+        <Outlet />
+      </ThemeProvider>
+    </Provider>
   )
 }
 

@@ -14,13 +14,13 @@ createRoot(document.getElementById('root')).render(
   <BrowserRouter>
     <Routes>
       <Route element={<App />}>
-        <Route path="/books" element={<Allbooks />} />
+        <Route path="/" element={<Allbooks />} />
         <Route path="/books/:id" element={<Book />} />
         <Route path="/cart" element={<Cart />} />
       </Route>
 
       <Route element={<AuthLayout />}>
-        <Route path="/" element={<Signup />} />
+        <Route path="/signup" element={<Signup />} />
         <Route path="/login" element={<Login />} />
       </Route>
     </Routes>

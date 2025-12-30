@@ -1,7 +1,12 @@
 import bookImg from "../assets/book1.jpg"
 import { useParams } from 'react-router-dom'
 import { books } from '../util'
-import { useEffect } from "react"
+import { useContext, useEffect } from "react"
+import { ThemeContext } from "./ThemeProvider"
+import { addBooks } from "./BookSlice"
+import { useDispatch } from "react-redux"
+import { useNavigate } from "react-router-dom"
+
 
 const Book = () => {
 
@@ -13,9 +18,27 @@ const Book = () => {
 
     const book = books.find((book) => book.id == id);
 
+    const {theme,toggleTheme} = useContext(ThemeContext);
+
+    const dispatch = useDispatch();
+
+    const navigate = useNavigate();
+
+    const handleCart = () =>
+    {
+        const bookDetail = {
+            id : book.id,
+            img : book.img,
+            price : book.price,
+            quantity :1
+        }
+        dispatch(addBooks(bookDetail));
+        navigate("/cart");
+    }
+
     return (
-        <div className="mt-24 px-4 md:px-16">
-            <div className="max-w-7xl mx-auto bg-gray-100 border-3 border-green-500 shadow-2xl p-6 md:p-10">
+        <div style={{backgroundColor:theme == "light" ? "white" : "black",color:theme == "light" ? "black" : "white"}} className="pt-24 min-h-screen px-4 md:px-16">
+            <div className="max-w-7xl mx-auto  border-3 border-green-500 shadow-2xl p-6 md:p-10">
 
                 {/* 3 COLUMN LAYOUT */}
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
@@ -29,10 +52,10 @@ const Book = () => {
                         />
 
                         <div className="flex gap-4 mt-6">
-                            <button className="px-6 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition">
+                            <button onClick={handleCart} className="px-6 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition">
                                 Add to Cart
                             </button>
-                            <button className="px-6 py-2 bg-orange-500 text-white rounded-lg hover:bg-orange-600 transition">
+                            <button onClick={handleCart} className="px-6 py-2 bg-orange-500 text-white rounded-lg hover:bg-orange-600 transition">
                                 Buy Now
                             </button>
                         </div>
@@ -43,7 +66,7 @@ const Book = () => {
                         <h1 className="text-3xl font-bold">{book.name}</h1>
                         <p className="text-xl text-green-600 font-semibold">₹{book.price}</p>
 
-                        <div className="grid grid-cols-2 gap-y-3 text-gray-700 mt-4">
+                        <div className="grid grid-cols-2 gap-y-3  mt-4">
                             <span className="font-semibold">ISBN:</span>
                             <span>{book.isbn}</span>
 
@@ -63,7 +86,7 @@ const Book = () => {
                             <span>10</span>
                         </div>
 
-                        <p className="text-gray-600 leading-relaxed mt-4">
+                        <p className=" leading-relaxed mt-4">
                             {book.description}
                         </p>
                     </div>

@@ -3,11 +3,15 @@ import StarRating from "./StarRating";
 import bookImg from "../assets/book1.jpg"
 import ReadingIntro from "./ReadingIntro";
 import { Link } from "react-router-dom";
+import { ThemeContext } from "./ThemeProvider";
+import { useContext } from "react";
 
 const Allbooks = () => {
+
+  const {theme,toggleTheme} = useContext(ThemeContext);
   
   return (
-    <div className="pt-4 px-4 md:px-8 lg:px-12 min-h-screen">
+    <div style={{backgroundColor:theme == "light" ? "white" : "black",color:theme == "light" ? "black" : "white"}} className="pt-4 px-4 md:px-8 lg:px-12 min-h-screen">
 
       <ReadingIntro />
 
@@ -23,6 +27,7 @@ const Allbooks = () => {
       ">
         {books.map((book) => (
           <div
+          style={{backgroundColor:theme == "light" ? "white" : "black",color:theme == "light" ? "black" : "white"}}
             key={book.id}
             className="bg-white border-3 border-green-500 rounded-sm hover:shadow-lg transition"
           >
@@ -37,7 +42,7 @@ const Allbooks = () => {
 
             {/* CONTENT */}
             <div className="px-3 pb-4">
-              <h2 className="text-md font-medium text-gray-900 line-clamp-2">
+              <h2 className="text-md font-medium  line-clamp-2">
                 {book.name}
               </h2>
 
@@ -45,7 +50,7 @@ const Allbooks = () => {
                 <StarRating rating={book.avgRating} />
               </div>
 
-              <div className="mt-1 text-lg font-bold text-gray-900">
+              <div className="mt-1 text-lg font-bold ">
                 ₹{book.price}
               </div>
 

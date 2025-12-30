@@ -1,12 +1,32 @@
-import { useState } from "react";
+import { useReducer, useState } from "react";
 import icon from "../assets/icon.png";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 
+const handleSignup = (state,action) =>
+{
+    switch(action.type)
+    {
+        case "setName" : return {...state,name : action.value}
+        case "setEmail" : return {...state,email : action.value}
+        case "setPassword" : return {...state,password : action.value}
+        default : throw new Error()
+    }
+}
+
 const Signup = () => {
-    const [name, setName] = useState("");
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
+
+    const [state,dispatch] = useReducer(handleSignup,{
+        name : "",
+        email : "",
+        password : ""
+    });
+
+    console.log(state.name)
+    console.log(state.email)
+    console.log(state.password)
+
+
     const [error, setError] = useState("");
     const navigate = useNavigate();
 
@@ -15,9 +35,9 @@ const Signup = () => {
         setError("");
 
         const payload = {
-            name,
-            email,
-            password,
+            name : state.name,
+            email : state.email,
+            password : state.password,
             role: "user",
         };
 
@@ -73,8 +93,8 @@ const Signup = () => {
                     <input
                         type="text"
                         placeholder="Full name"
-                        value={name}
-                        onChange={(e) => setName(e.target.value)}
+                        value={state.name}
+                        onChange={(e) => dispatch({type : "setName",value : e.target.value})}
                         className="px-4 py-3 border border-gray-300 rounded-lg outline-none focus:ring-2 focus:ring-yellow-400"
                         required
                     />
@@ -82,8 +102,8 @@ const Signup = () => {
                     <input
                         type="email"
                         placeholder="Email address"
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
+                        value={state.email}
+                        onChange={(e) => dispatch({type : "setEmail",value : e.target.value})}
                         className="px-4 py-3 border border-gray-300 rounded-lg outline-none focus:ring-2 focus:ring-yellow-400"
                         required
                     />
@@ -91,8 +111,8 @@ const Signup = () => {
                     <input
                         type="password"
                         placeholder="Password"
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)}
+                        value={state.password}
+                        onChange={(e) => dispatch({type : "setPassword",value : e.target.value})}
                         className="px-4 py-3 border border-gray-300 rounded-lg outline-none focus:ring-2 focus:ring-yellow-400"
                         required
                     />
