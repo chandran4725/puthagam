@@ -33,7 +33,9 @@ const Navbar = () => {
                 </div>
                 <div className='max-lg:hidden'>
                     <ul className='flex gap-8 text-lg font-semibold mt-1'>
-                        <li className='hover:cursor-pointer hover:text-green-500'>Home</li>
+                        <Link to={"/"}>
+                            <li className='hover:cursor-pointer hover:text-green-500'>Home</li>
+                        </Link>
                         <Link to={"/books"}>
                             <li className='hover:cursor-pointer hover:text-green-500'>All Books</li>
                         </Link>
@@ -43,7 +45,9 @@ const Navbar = () => {
                 </div>
 
                 <div className={`flex items-center gap-8 mt-2 ${open ? "hidden" : "block"}`}>
-                    <i className='max-sm:text-xl text-2xl hover:cursor-pointer hover:text-green-500'><FaShoppingCart /></i>
+                    <Link to={"/cart"}>
+                        <i className='max-sm:text-xl text-2xl hover:cursor-pointer hover:text-green-500'><FaShoppingCart /></i>
+                    </Link>
                     <i className='max-sm:text-2xl text-3xl hover:cursor-pointer hover:text-green-500'><IoPersonCircle /></i>
                     {
                         theme == "light" ? (
@@ -72,10 +76,15 @@ const Navbar = () => {
                     <hr className='mx-2 md:mx-6' />
 
                     <ul className='my-2 px-4 md:px-6 space-y-1 text-md font-bold text-center'>
-                        <li className='hover:bg-green-500 hover:text-white py-2'>Home</li>
-                        <li className='hover:bg-green-500 hover:text-white py-2'>All Books</li>
-                        <li className='hover:bg-green-500 hover:text-white py-2'>About</li>
-                        <li className='hover:bg-green-500 hover:text-white py-2'>Contact</li>
+                        <Link to={"/"} onClick={toggleMenu}>
+                            <li className='hover:bg-green-500 hover:text-white py-2'>Home</li>
+                        </Link>
+                        <Link to={"/books"} onClick={toggleMenu}>
+                            <li className='hover:bg-green-500 hover:text-white py-2'>All Books</li>
+                        </Link>
+
+                        <li onClick={toggleMenu} className='hover:bg-green-500 hover:text-white py-2'>About</li>
+                        <li onClick={toggleMenu} className='hover:bg-green-500 hover:text-white py-2'>Contact</li>
                     </ul>
                 </div>
             </nav>

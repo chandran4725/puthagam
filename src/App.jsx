@@ -4,6 +4,7 @@ import Navbar from "./components/Navbar"
 import ThemeProvider from "./components/ThemeProvider"
 import { Provider } from "react-redux"
 import { Store } from "./components/Store"
+import Footer from "./components/Footer"
 
 
 const App = () => {
@@ -12,6 +13,7 @@ const App = () => {
       <ThemeProvider>
         <Navbar />
         <Outlet />
+        <Footer/>
       </ThemeProvider>
     </Provider>
   )

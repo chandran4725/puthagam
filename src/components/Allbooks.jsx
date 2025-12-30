@@ -4,14 +4,19 @@ import bookImg from "../assets/book1.jpg"
 import ReadingIntro from "./ReadingIntro";
 import { Link } from "react-router-dom";
 import { ThemeContext } from "./ThemeProvider";
-import { useContext } from "react";
+import { useContext,useEffect } from "react";
+
 
 const Allbooks = () => {
 
-  const {theme,toggleTheme} = useContext(ThemeContext);
-  
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }, [])
+
+  const { theme, toggleTheme } = useContext(ThemeContext);
+
   return (
-    <div style={{backgroundColor:theme == "light" ? "white" : "black",color:theme == "light" ? "black" : "white"}} className="pt-4 px-4 md:px-8 lg:px-12 min-h-screen">
+    <div style={{ backgroundColor: theme == "light" ? "white" : "black", color: theme == "light" ? "black" : "white" }} className="pt-4 px-4 md:px-8 lg:px-12 min-h-screen">
 
       <ReadingIntro />
 
@@ -24,12 +29,13 @@ const Allbooks = () => {
         md:grid-cols-3
         lg:grid-cols-4
         gap-4
+        pb-20
       ">
         {books.map((book) => (
           <div
-          style={{backgroundColor:theme == "light" ? "white" : "black",color:theme == "light" ? "black" : "white"}}
+            style={{ backgroundColor: theme == "light" ? "white" : "black", color: theme == "light" ? "black" : "white" }}
             key={book.id}
-            className="bg-white border-3 border-green-500 rounded-sm hover:shadow-lg transition"
+            className="bg-white border-3 border-gray-200 rounded-sm hover:shadow-lg transition"
           >
             {/* IMAGE */}
             <div className="flex justify-center p-4">
@@ -54,7 +60,7 @@ const Allbooks = () => {
                 ₹{book.price}
               </div>
 
-              <Link to={"/books/"+book.id}>
+              <Link to={"/books/" + book.id}>
                 <button className="
                 mt-2
                 w-full

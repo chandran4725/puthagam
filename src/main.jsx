@@ -8,13 +8,15 @@ import Login from "./components/Login.jsx"
 import Signup from "./components/Signup.jsx"
 import AuthLayout from "./AuthLayout.jsx"
 import Cart from "./components/Cart.jsx"
+import Home from "./components/Home.jsx"
 
 createRoot(document.getElementById('root')).render(
 
   <BrowserRouter>
     <Routes>
       <Route element={<App />}>
-        <Route path="/" element={<Allbooks />} />
+        <Route path="/" element={<Home />} />
+        <Route path="/books" element={<Allbooks />} />
         <Route path="/books/:id" element={<Book />} />
         <Route path="/cart" element={<Cart />} />
       </Route>

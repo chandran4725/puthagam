@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import ReadingImage from "../assets/ReadingImage.jpg"; // add your image here
 import { ThemeContext } from "./ThemeProvider";
-
+import book2 from "../assets/book2.jpg"
 
 const ReadingIntro = () => {
   const {theme,toggleTheme}= useContext(ThemeContext)
@@ -10,11 +10,16 @@ const ReadingIntro = () => {
       <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-10 items-center">
 
         {/* IMAGE */}
-        <div className="flex justify-center">
+        <div className="flex-row space-y-8 justify-center">
           <img
             src={ReadingImage}
             alt="Person reading a book"
-            className="w-full max-w-sm md:max-w-md rounded-xl shadow-lg"
+            className="rounded-md shadow-2xl"
+          />
+          <img
+            src={book2}
+            alt="Person reading a book"
+            className="rounded-md shadow-2xl max-sm:hidden lg:hidden"
           />
         </div>
 
