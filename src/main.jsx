@@ -9,6 +9,9 @@ import Signup from "./components/Signup.jsx"
 import AuthLayout from "./AuthLayout.jsx"
 import Cart from "./components/Cart.jsx"
 import Home from "./components/Home.jsx"
+import AdminLayout from "./AdminLayout.jsx"
+import AddBook from "./admin/Addbook.jsx"
+import BookList from "./admin/BookList.jsx"
 
 createRoot(document.getElementById('root')).render(
 
@@ -24,6 +27,11 @@ createRoot(document.getElementById('root')).render(
       <Route element={<AuthLayout />}>
         <Route path="/signup" element={<Signup />} />
         <Route path="/login" element={<Login />} />
+      </Route>
+
+      <Route path="/admin" element={<AdminLayout />}>
+        <Route path="/admin" element={<AddBook />} />
+        <Route path="/admin/allbooks" element={<BookList />} />
       </Route>
     </Routes>
   </BrowserRouter>
