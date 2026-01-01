@@ -10,7 +10,7 @@ import AuthLayout from "./AuthLayout.jsx"
 import Cart from "./components/Cart.jsx"
 import Home from "./components/Home.jsx"
 import AdminLayout from "./AdminLayout.jsx"
-import AddBook from "./admin/Addbook.jsx"
+import AddBook from "./admin/AddBook.jsx"
 import BookList from "./admin/BookList.jsx"
 
 createRoot(document.getElementById('root')).render(
