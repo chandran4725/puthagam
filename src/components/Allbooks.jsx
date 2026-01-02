@@ -1,18 +1,21 @@
 import StarRating from "./StarRating";
-import bookImg from "../assets/book1.jpg"
 import ReadingIntro from "./ReadingIntro";
 import { Link } from "react-router-dom";
 import { ThemeContext } from "./ThemeProvider";
-import { useContext,useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { getAllBooks } from "../service";
+import BookSkeloton from "../shimmer/BookSkeloton";
 
 
 const Allbooks = () => {
 
-  const [books,setBooks] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [books, setBooks] = useState([]);
 
   useEffect(() => {
-    getAllBooks().then((res) => setBooks(res.data));
+    getAllBooks()
+      .then((res) => setBooks(res.data))
+      .finally(() => setLoading(false))
     window.scrollTo({ top: 0, behavior: "smooth" });
   }, [])
 
@@ -20,6 +23,18 @@ const Allbooks = () => {
 
   const { theme, toggleTheme } = useContext(ThemeContext);
 
+  if (loading) {
+    return (
+      <>
+        {(
+          Array.from({ length: 8 })
+            .map((_, index) => <BookSkeloton key={index} />)
+        )}
+      </>
+    )
+
+  }
+  
   return (
     <div style={{ backgroundColor: theme == "light" ? "white" : "black", color: theme == "light" ? "black" : "white" }} className="pt-4 px-4 md:px-8 lg:px-12 min-h-screen">
 
@@ -37,7 +52,7 @@ const Allbooks = () => {
         pb-20
       ">
         {books.map((book) => (
-          
+
           <div
             style={{ backgroundColor: theme == "light" ? "white" : "black", color: theme == "light" ? "black" : "white" }}
             key={book.bookId}
@@ -56,7 +71,7 @@ const Allbooks = () => {
             <div className="px-3 pb-4">
               <h2 className="text-md font-medium  line-clamp-2">
                 {book.title}
-                
+
               </h2>
 
               <div className="mt-1 text-md text-yellow-600">
@@ -85,7 +100,7 @@ const Allbooks = () => {
               </Link>
             </div>
           </div>
-          
+
         ))}
       </div>
     </div>
