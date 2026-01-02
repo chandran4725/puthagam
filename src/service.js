@@ -1,12 +1,19 @@
 import axios from "axios";
 
-const BASE_URL = "http://localhost:8080/api/admin/books";
-const BASE_URL1 = "http://localhost:8080/api/books";
+const BASE_URL = import.meta.env.VITE_BACKEND_URL
+
+const SUB_URL = BASE_URL+"/api/admin/books";
+const SUB_URL1 = BASE_URL+"/api/books";
+const SUB_URL2 = BASE_URL+"/api/books/"
 
 export const addBook = (formData) => {
-  return axios.post(BASE_URL, formData);
+  return axios.post(SUB_URL, formData);
 };
 
 export const getAllBooks = () => {
-  return axios.get(BASE_URL1);
+  return axios.get(SUB_URL1);
 };
+
+export const getBookById = (id) => {
+  return axios.get(SUB_URL2+id);
+} 

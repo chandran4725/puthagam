@@ -1,44 +1,52 @@
 import bookImg from "../assets/book1.jpg"
 import { useParams } from 'react-router-dom'
-import { books } from '../util'
-import { useContext, useEffect } from "react"
+import { useContext, useEffect, useState } from "react"
 import { ThemeContext } from "./ThemeProvider"
 import { addBooks } from "./BookSlice"
 import { useDispatch } from "react-redux"
 import { useNavigate } from "react-router-dom"
 
+import { getAllBooks, getBookById } from "../service"
+
 
 const Book = () => {
 
-    useEffect(()=>{
-        window.scrollTo({top:0,behavior:"smooth"});
-    },[])
+    const { id } = useParams();
 
-    const {id} = useParams();
+    const [book, setBook] = useState([]);
 
-    const book = books.find((book) => book.id == id);
+    useEffect(() => {
+        getBookById(Number(id)).then((res) => setBook(res.data));
+        window.scrollTo({ top: 0, behavior: "smooth" });
+    }, [])
 
-    const {theme,toggleTheme} = useContext(ThemeContext);
+    console.log(book)
+    
+
+    const { theme, toggleTheme } = useContext(ThemeContext);
 
     const dispatch = useDispatch();
 
     const navigate = useNavigate();
 
-    const handleCart = () =>
-    {
+    const handleCart = () => {
         const bookDetail = {
-            id : book.id,
-            img : book.img,
-            price : book.price,
-            quantity :1
+            id: book.bookId,
+            img: book.imageUrl,
+            price: book.price,
+            quantity: 1
         }
         dispatch(addBooks(bookDetail));
         navigate("/cart");
     }
 
+    if (!book) {
+        return <div className="pt-24 text-center">Loading book details...</div>;
+    }
+
     return (
-        <div style={{backgroundColor:theme == "light" ? "white" : "black",color:theme == "light" ? "black" : "white"}} className="pt-24 min-h-screen px-4 md:px-16">
-            <div className="max-w-7xl mx-auto  border-3 border-green-500 shadow-2xl p-6 md:p-10">
+        <div style={{ backgroundColor: theme == "light" ? "white" : "black", color: theme == "light" ? "black" : "white" }} className="pt-24 min-h-screen px-4 md:px-16 pb-8 md:mt-8">
+            <div className="max-w-7xl mx-auto  border-3 border-green-500 shadow-2xl p-6 md:p-10 ">
 
                 {/* 3 COLUMN LAYOUT */}
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
@@ -46,7 +54,7 @@ const Book = () => {
                     {/* COLUMN 1: BOOK IMAGE */}
                     <div className="flex flex-col items-center">
                         <img
-                            src={bookImg}
+                            src={book.imageUrl}
                             alt="Book"
                             className="w-65 shadow-md"
                         />
@@ -63,7 +71,7 @@ const Book = () => {
 
                     {/* COLUMN 2: BOOK DETAILS */}
                     <div className="flex flex-col gap-4">
-                        <h1 className="text-3xl font-bold">{book.name}</h1>
+                        <h1 className="text-3xl font-bold">{book.title}</h1>
                         <p className="text-xl text-green-600 font-semibold">₹{book.price}</p>
 
                         <div className="grid grid-cols-2 gap-y-3  mt-4">
@@ -128,7 +136,7 @@ const Book = () => {
 
                 </div>
                 {/* COLUMN 3: REVIEWS MD View */}
-                <hr className='my-4 max-sm:hidden lg:hidden'/>
+                <hr className='my-4 max-sm:hidden lg:hidden' />
                 <div className="flex flex-col gap-6 max-sm:hidden sm:block lg:hidden">
                     <div className="flex justify-between items-center">
                         <h2 className="text-xl font-bold">Reviews</h2>

@@ -1,17 +1,22 @@
-import { books } from "../util";
 import StarRating from "./StarRating";
 import bookImg from "../assets/book1.jpg"
 import ReadingIntro from "./ReadingIntro";
 import { Link } from "react-router-dom";
 import { ThemeContext } from "./ThemeProvider";
-import { useContext,useEffect } from "react";
+import { useContext,useEffect, useState } from "react";
+import { getAllBooks } from "../service";
 
 
 const Allbooks = () => {
 
+  const [books,setBooks] = useState([]);
+
   useEffect(() => {
+    getAllBooks().then((res) => setBooks(res.data));
     window.scrollTo({ top: 0, behavior: "smooth" });
   }, [])
+
+  console.log(books);
 
   const { theme, toggleTheme } = useContext(ThemeContext);
 
@@ -32,16 +37,17 @@ const Allbooks = () => {
         pb-20
       ">
         {books.map((book) => (
+          
           <div
             style={{ backgroundColor: theme == "light" ? "white" : "black", color: theme == "light" ? "black" : "white" }}
-            key={book.id}
+            key={book.bookId}
             className="bg-white border-3 border-gray-200 rounded-sm hover:shadow-lg transition"
           >
             {/* IMAGE */}
             <div className="flex justify-center p-4">
               <img
-                src={bookImg}
-                alt={book.name}
+                src={book.imageUrl}
+                alt={book.title}
                 className="h-40 object-contain"
               />
             </div>
@@ -49,7 +55,8 @@ const Allbooks = () => {
             {/* CONTENT */}
             <div className="px-3 pb-4">
               <h2 className="text-md font-medium  line-clamp-2">
-                {book.name}
+                {book.title}
+                
               </h2>
 
               <div className="mt-1 text-md text-yellow-600">
@@ -60,7 +67,7 @@ const Allbooks = () => {
                 ₹{book.price}
               </div>
 
-              <Link to={"/books/" + book.id}>
+              <Link to={"/books/" + book.bookId}>
                 <button className="
                 mt-2
                 w-full
@@ -78,6 +85,7 @@ const Allbooks = () => {
               </Link>
             </div>
           </div>
+          
         ))}
       </div>
     </div>

@@ -42,7 +42,7 @@ const Cart = () => {
                 className="flex flex-col sm:flex-row items-center gap-6 border-b py-4"
               >
                 <img
-                  src={bookImg}
+                  src={item.img}
                   alt={item?.name}
                   className="w-32 h-32 object-contain"
                 />
