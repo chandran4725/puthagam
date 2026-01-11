@@ -1,5 +1,6 @@
 import bookImg from "../assets/book1.jpg";
 import { useDispatch, useSelector } from "react-redux";
+import { orderBook } from "../service";
 import {
   increaseQty,
   decreaseQty,
@@ -7,7 +8,7 @@ import {
 } from "./BookSlice";
 
 import { ThemeContext } from "./ThemeProvider";
-import { useContext ,useEffect} from "react";
+import { useContext, useEffect } from "react";
 
 const Cart = () => {
 
@@ -20,10 +21,64 @@ const Cart = () => {
   const dispatch = useDispatch();
   const cartItems = useSelector(state => state.cart.items);
 
+  console.log(cartItems);
+
   const subtotal = cartItems.reduce(
     (sum, item) => sum + item.price * item.quantity,
     0
   );
+
+  const bookItems = cartItems.map((book) => {
+    return {
+      bookId: book.id,
+      quantity: book.quantity
+    };
+  });
+
+  const orderDetails = {
+    userId: 1,
+    orderItems: bookItems
+  }
+
+const handleOrder = async () => {
+  try {
+    const res = await orderBook(orderDetails);
+
+    const options = {
+      key: "rzp_test_S2bpnFcG4OOrZ9", // your Razorpay KEY_ID
+      amount: res.data.totalAmount * 100, // paise
+      currency: "INR",
+      name: "Chandru Book Store",
+      description: "Book Purchase",
+      order_id: res.data.razorpayId, // 🔥 VERY IMPORTANT
+
+      handler: function (response) {
+        console.log("Payment Success", response);
+
+        // Send this to backend for verification
+        
+      },
+
+      prefill: {
+        name: "Chandru",
+        email: "test@example.com"
+      },
+
+      theme: {
+        color: "#3399cc"
+      }
+    };
+
+    const razorpay = new window.Razorpay(options);
+    razorpay.open();
+
+  } catch (err) {
+    console.error(err);
+  }
+};
+
+
+  console.log(bookItems);
 
   return (
     <div className={`${theme == 'light' ? 'bg-white text-black' : 'bg-black text-white'} py-12  pt-20 sm:pt-36 px-4 md:px-16`}>
@@ -51,7 +106,7 @@ const Cart = () => {
                   <h2 className="font-semibold text-lg">{item?.name}</h2>
                   <p className=" mt-1">₹{item?.price}</p>
 
-                  <div className="flex items-center gap-3 mt-3">
+                  <div className="flex items-center gap-3 mt-3 cursor-pointer">
                     <button
                       onClick={() => dispatch(decreaseQty(item?.id))}
                       className="px-3 py-1 border rounded-md"
@@ -63,7 +118,7 @@ const Cart = () => {
 
                     <button
                       onClick={() => dispatch(increaseQty(item?.id))}
-                      className="px-3 py-1 border rounded-md"
+                      className="px-3 py-1 border rounded-md cursor-pointer"
                     >
                       +
                     </button>
@@ -107,8 +162,9 @@ const Cart = () => {
           </div>
 
           <button
+            onClick={handleOrder}
             disabled={cartItems.length === 0}
-            className={`w-full mt-6 py-3 rounded-lg font-semibold
+            className={`w-full cursor-pointer mt-6 py-3 rounded-lg font-semibold
               ${cartItems.length === 0
                 ? theme == 'light' ? "bg-gray-300 cursor-not-allowed" : " bg-white cursor-not-allowed text-black"
                 : "bg-yellow-400 hover:bg-yellow-500"}`}

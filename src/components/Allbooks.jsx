@@ -75,7 +75,7 @@ const Allbooks = () => {
               </h2>
 
               <div className="mt-1 text-md text-yellow-600">
-                <StarRating rating={book.avgRating} />
+                <StarRating rating={5} />
               </div>
 
               <div className="mt-1 text-lg font-bold ">
