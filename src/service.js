@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const BASE_URL = import.meta.env.VITE_LOCAL_URL
+const BASE_URL = import.meta.env.VITE_BACKEND_URL
 
 const SUB_URL = BASE_URL+"/api/admin/books";
 const SUB_URL1 = BASE_URL+"/api/books";
