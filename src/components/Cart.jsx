@@ -46,9 +46,9 @@ const handleOrder = async () => {
 
     const options = {
       key: "rzp_test_S2bpnFcG4OOrZ9", // your Razorpay KEY_ID
-      amount: res.data.totalAmount * 100, // paise
+      amount: res.data.totalAmount * 1000, // paise
       currency: "INR",
-      name: "Chandru Book Store",
+      name: "Puthagam",
       description: "Book Purchase",
       order_id: res.data.razorpayId, // 🔥 VERY IMPORTANT
 
