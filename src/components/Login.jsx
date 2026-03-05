@@ -44,7 +44,7 @@ const Login = () => {
 
                     <p className="text-center text-sm text-gray-600 mt-4">
                         Don’t have an account?
-                        <Link to={"/"}>
+                        <Link to={"/signup"}>
                             <span className="text-yellow-500 font-medium cursor-pointer ml-1">
                                 Register
                             </span>

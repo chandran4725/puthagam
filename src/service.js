@@ -19,6 +19,10 @@ export const getBookById = (id) => {
   return axios.get(SUB_URL2+id);
 } 
 
+export const deleteBook = (id) => {
+  return axios.delete(SUB_URL+id);
+}
+
 export const orderBook = (orderDetails) => {
   return axios.post(SUB_URL3,orderDetails,{
     headers:{

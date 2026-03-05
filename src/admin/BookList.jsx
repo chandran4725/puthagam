@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
-import { getAllBooks } from "../service";
+import { getAllBooks, deleteBook } from "../service";
+import { MdDelete } from "react-icons/md";
 
 const BookList = () => {
   const [books, setBooks] = useState([]);
@@ -8,16 +9,19 @@ const BookList = () => {
     getAllBooks().then(res => setBooks(res.data));
   }, []);
 
+  const handleSubmit = async (id) => {
+    await deleteBook(id);
+  }
+
   return (
     <>
-      <h2 className="text-2xl font-semibold mb-6">Manage Books</h2>
+      <h2 className="text-2xl font-semibold text-white mb-6">Manage Books</h2>
 
       <table className="w-full bg-white rounded-xl shadow">
         <thead className="bg-slate-100">
           <tr>
-            <th className="p-3">Image</th>
+            <th className="p-2">Image</th>
             <th>Title</th>
-            <th>Author</th>
             <th>Price</th>
             <th>Stock</th>
           </tr>
@@ -26,13 +30,15 @@ const BookList = () => {
         <tbody>
           {books.map(book => (
             <tr key={book.bookId} className="text-center border-t">
-              <td className="p-2">
+              <td className="py-1">
                 <img src={book.imageUrl} className="h-16 mx-auto rounded" />
               </td>
               <td>{book.title}</td>
-              <td>{book.author}</td>
               <td>₹{book.price}</td>
               <td>{book.availableQuantity}</td>
+              <td><i className="text-xl" onClick={handleSubmit}>
+                <MdDelete />
+              </i></td>
             </tr>
           ))}
         </tbody>

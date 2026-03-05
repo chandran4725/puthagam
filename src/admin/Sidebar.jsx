@@ -10,11 +10,11 @@ const Sidebar = () => {
 
     return (
         <>
-            <div className="h-screen w-64 bg-slate-900 text-white p-6 border-r-2 border-amber-600 max-md:hidden">
+            <div className="w-64 bg-slate-900 text-white p-6 border-r-2 border-amber-600 max-md:hidden">
                 <h1 className="text-2xl font-bold mt-2 mb-4">Admin Panel</h1>
                 <hr />
                 <nav className="space-y-4 mt-4">
-                    <Link to="/admin/dashboard" className="block py-2 px-4 rounded-md hover:bg-amber-600">
+                    <Link to="/" className="block py-2 px-4 rounded-md hover:bg-amber-600">
                         Dashboard
                     </Link>
                     <Link to="/admin" className="block py-2 px-4 rounded-md hover:bg-amber-600">
@@ -26,7 +26,7 @@ const Sidebar = () => {
                 </nav>
             </div>
 
-            <div className={`lg:hidden ${toggle == true ? 'block' : 'hidden' } fixed z-50 top-0 w-full p-0  m-0 h-screen bg-slate-900 text-white transition-all duration-300 ease-in-out ${open ? "block" : "hidden"}`}>
+            <div className={`lg:hidden ${toggle == true ? 'block' : 'hidden'} fixed z-50 top-0 w-full p-0  m-0 h-screen bg-slate-900 text-white transition-all duration-300 ease-in-out ${open ? "block" : "hidden"}`}>
                 <div className='px-3 md:px-8 py-4 flex justify-between items-center'>
                     <div className='flex gap-2 items-center'>
                         <img src={icon} alt="icon" width={"50px"} height={"50px"} className='rounded-lg max-sm:w-10 max-sm:h-10' />
@@ -39,16 +39,17 @@ const Sidebar = () => {
                 <hr className='mx-2 md:mx-6' />
 
                 <ul className='my-2 px-4 md:px-6 space-y-1 text-md font-bold text-center'>
-                    <Link to={"/admin/dashboard"} onClick={toggleMenu}>
+                    <Link to={"/"} onClick={toggleMenu}>
                         <li className='hover:bg-amber-600  py-2'>Dashboard</li>
                     </Link>
                     <Link to={"/admin"} onClick={toggleMenu}>
                         <li className='hover:bg-amber-600  py-2'>Add Book</li>
                     </Link>
-
-                    <li onClick={toggleMenu} className='hover:bg-amber-600 hover:text-white py-2'>All Books</li>
+                    <Link to={"/admin/allbooks"} onClick={toggleMenu}>
+                        <li onClick={toggleMenu} className='hover:bg-amber-600 hover:text-white py-2'>All Books</li>
+                    </Link>
                 </ul>
-            </div>
+            </div >
         </>
     );
 };

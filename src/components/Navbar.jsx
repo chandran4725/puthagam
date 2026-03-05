@@ -48,7 +48,9 @@ const Navbar = () => {
                     <Link to={"/cart"}>
                         <i className='max-sm:text-xl text-2xl hover:cursor-pointer hover:text-green-500'><FaShoppingCart /></i>
                     </Link>
-                    <i className='max-sm:text-2xl text-3xl hover:cursor-pointer hover:text-green-500'><IoPersonCircle /></i>
+                    <Link to={"/signup"}>
+                        <i className='max-sm:text-2xl text-3xl hover:cursor-pointer hover:text-green-500'><IoPersonCircle /></i>
+                    </Link>
                     {
                         theme == "light" ? (
                             <i className='max-sm:text-2xl text-3xl hover:cursor-pointer hover:text-green-500' onClick={toggleTheme}><MdDarkMode /></i>
