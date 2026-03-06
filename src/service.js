@@ -20,7 +20,7 @@ export const getBookById = (id) => {
 } 
 
 export const deleteBook = (id) => {
-  return axios.delete(SUB_URL+id);
+  return axios.delete(`${SUB_URL}` + "/" + `${id}`);
 }
 
 export const orderBook = (orderDetails) => {
